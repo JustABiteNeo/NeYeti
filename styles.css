@@ -5,10 +5,7 @@ body {
     margin: 0;
     padding: 0;
     color: white;
-    overflow: hidden;
-    height: 100vh; /* Ensures full screen height */
-    background-color: black; /* Prevent white flash */
-    position: relative;
+
 }
 
 .navbar {
