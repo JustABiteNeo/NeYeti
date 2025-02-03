@@ -63,11 +63,56 @@
     margin-right: 20px; /* Horizontal spacing */
 }
 
+.Discord {
+    background: linear-gradient(to top, #1e1e1e, #3b3b3b);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+    margin-top: 200px; /* Increased margin to place buttons further down */
+    margin-bottom: 40px; /* More space between buttons */
+    z-index: 20;
+    position: relative;
+    margin-left: 20px; /* Horizontal spacing */
+    margin-right: 20px; /* Horizontal spacing */
+}
+
 .download-btn1:hover {
     background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Green gradient on hover */
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
     transform: scale(1.2); /* Increased size on hover */
 }
+
+
+
+
+
+
+
+
+
+
+.Discord:hover {
+    background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Green gradient on hover */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    transform: scale(1.2); /* Increased size on hover */
+}
+
+
+.Discord:active {
+    background: linear-gradient(to top, #0f0f0f, #2b2b2b);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+
+
+
+
+
 
 .secondary-btn1:hover {
     background: linear-gradient(to top, #FFFF00, #8B8000); /* Green gradient on hover */
