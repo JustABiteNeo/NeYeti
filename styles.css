@@ -17,7 +17,7 @@ body {
     z-index: 10;
     position: fixed;
     top: 0;
-    width: 100%; /* Fixed width issue */
+    width: 96%; /* Fixed width issue */
 }
 
 .navbar .logo {
