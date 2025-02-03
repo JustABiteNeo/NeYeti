@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@700&display=swap');
 
 body {
-    font-family: 'Arimo', sans-serif;
+   font-family: 'Arimo', sans-serif;
     margin: 0;
     padding: 0;
-    color: black;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    background-color: black; /* Prevent white background flash */
+    position: relative;
 }
 
 .navbar {
