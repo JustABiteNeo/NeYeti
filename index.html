@@ -3,130 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Styled GitHub Website</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@700&display=swap');
-        
-        body {
-            font-family: 'Arimo', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: white;
-            overflow: hidden;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            transition: background-image 1s ease-in-out;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to top, #121212, black);
-            padding: 15px 30px;
-        }
-        .navbar .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .navbar .menu {
-            display: flex;
-            gap: 20px;
-        }
-        .navbar .menu a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            transition: 0.3s;
-        }
-        .navbar .menu a:hover {
-            background-color: #333;
-            border-radius: 5px;
-        }
-        .download-btn, .secondary-btn {
-            background: linear-gradient(to top, #1e1e1e, #3b3b3b);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 5px;
-            position: relative;
-        }
-        .download-btn:hover, .secondary-btn:hover {
-            background: linear-gradient(to top, #292929, #4b4b4b);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-        .download-btn:active, .secondary-btn:active {
-            background: linear-gradient(to top, #0f0f0f, #2b2b2b);
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        }
-        .content {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .falling-star {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            animation: fall 5s linear infinite, fadeInOut 5s linear infinite;
-        }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-10vh) translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh) translateX(50px);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .fade-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            animation: fadeInOutBackground 12s infinite;
-        }
-
-        @keyframes fadeInOutBackground {
-            0% { opacity: 0; }
-            10% { opacity: 1; }
-            30% { opacity: 1; }
-            40% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-    </style>
+    <title>Home - Styled GitHub Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">MY WEBSITE</div>
         <div class="menu">
-            <a href="#">Home</a>
-            <a href="#">Features</a>
-            <a href="#">Support</a>
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="support.html">Support</a>
         </div>
-        <button class="download-btn" onclick="downloadTextFile()">DOWNLOAD</button>
     </nav>
     <div class="content">
         <h1>Welcome to My GitHub Website</h1>
@@ -136,59 +23,32 @@
     </div>
 
     <script>
-        // Array of background images
+        // Background images & animations
         const backgrounds = [
             'https://i.ibb.co/qF46FzC0/Slidelast.png',
             'https://i.ibb.co/8LK2sM5X/Slide2.png',
             'https://i.ibb.co/Ld1nxbDp/Slide1.png'
         ];
-
-        // Create and append the background elements
+        
         let backgroundIndex = 0;
         const totalBackgrounds = backgrounds.length;
 
         function changeBackground() {
-            // Remove the previous background
             const previousBackground = document.querySelector('.fade-background');
             if (previousBackground) {
                 previousBackground.remove();
             }
 
-            // Create new background element
             const backgroundElement = document.createElement('div');
             backgroundElement.classList.add('fade-background');
             backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
 
-            // Append it to the body
             document.body.appendChild(backgroundElement);
-
-            // Update index to the next image, looping back to 0 if we reach the end
             backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
         }
 
-        // Start the background slideshow (initial call and interval)
         changeBackground();
-        setInterval(changeBackground, 4000); // Change every 4 seconds
-
-        // Mouse movement star effect
-        document.addEventListener('mousemove', (event) => {
-            const stars = document.querySelectorAll('.falling-star');
-            stars.forEach(star => {
-                const starX = parseFloat(star.style.left);
-                const starY = parseFloat(star.style.top);
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
-                
-                const diffX = mouseX - starX;
-                const diffY = mouseY - starY;
-                const distance = Math.sqrt(diffX * diffX + diffY * diffY);
-                
-                const moveX = diffX / distance * 10; // Adjust speed here
-                const moveY = diffY / distance * 10; // Adjust speed here
-
-                star.style.transform = `translate(-50%, -50%) translate(${moveX}px, ${moveY}px)`;
-            });
-        });
+        setInterval(changeBackground, 4000);
 
         function downloadTextFile() {
             const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
@@ -204,20 +64,6 @@
                 })
                 .catch(error => console.error("Error downloading file:", error));
         }
-
-        function createFallingStars() {
-            for (let i = 0; i < 20; i++) {
-                let star = document.createElement("div");
-                star.classList.add("falling-star");
-                star.style.left = Math.random() * 100 + "vw";
-                star.style.top = Math.random() * 100 + "vh";
-                star.style.animationDuration = Math.random() * 3 + 3 + "s";
-                document.body.appendChild(star);
-                setTimeout(() => { star.remove(); }, 5000);
-            }
-        }
-
-        setInterval(createFallingStars, 1000);
     </script>
 </body>
 </html>
