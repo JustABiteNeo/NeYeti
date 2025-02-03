@@ -46,7 +46,7 @@ body {
 }
 
 .download-btn, .secondary-btn {
-    background: linear-gradient(to top, #1e1e1e, #3b3b3b);
+    background: linear-gradient(to top, #FFFF00, #8B8000);
     color: white;
     padding: 12px 30px;
     border: none;
