@@ -62,10 +62,11 @@ body {
 }
 
 .download-btn:hover, .secondary-btn:hover {
-    background: linear-gradient(to top, #3b9b3b, #292929); /* Green gradient on hover */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    transform: scale(1.1); /* Subtle size increase on hover */
+    background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Dark green gradient on hover */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    transform: scale(1.1); /* Slight size increase on hover */
 }
+
 
 .download-btn:active, .secondary-btn:active {
     background: linear-gradient(to top, #0f0f0f, #2b2b2b);
