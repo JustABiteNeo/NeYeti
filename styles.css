@@ -55,21 +55,24 @@ body {
     cursor: pointer;
     transition: 0.3s;
     border-radius: 5px;
-    margin-top: 100px; /* Adjust this margin to place the buttons further down */
-    margin-bottom: 20px;
+    margin-top: 200px; /* Increased margin to place buttons further down */
+    margin-bottom: 40px; /* More space between buttons */
     z-index: 20;
     position: relative;
+    margin-left: 20px; /* Horizontal spacing */
+    margin-right: 20px; /* Horizontal spacing */
 }
 
 .download-btn1:hover {
-    background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Dark green gradient on hover */
+    background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Green gradient on hover */
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
-    transform: scale(1.1); /* Slight size increase on hover */
+    transform: scale(1.2); /* Increased size on hover */
 }
+
 .secondary-btn1:hover {
-    background: linear-gradient(to top, #FFFF00, #8B8000); /* Dark green gradient on hover */
+    background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Green gradient on hover */
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
-    transform: scale(1.1); /* Slight size increase on hover */
+    transform: scale(1.2); /* Increased size on hover */
 }
 
 .download-btn1:active, .secondary-btn1:active {
