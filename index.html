@@ -11,11 +11,15 @@
             font-family: 'Arimo', sans-serif;
             margin: 0;
             padding: 0;
-            background: url('https://i.ibb.co/FNPDww0/Untitled45-20250203042739.png') no-repeat center center/cover;
             color: white;
             overflow: hidden;
             height: 100vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: background-image 1s ease-in-out;
         }
+        
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -65,6 +69,7 @@
             text-align: center;
             margin-top: 50px;
         }
+
         .falling-star {
             position: absolute;
             width: 3px;
@@ -74,6 +79,7 @@
             opacity: 0;
             animation: fall 5s linear infinite, fadeInOut 5s linear infinite;
         }
+
         @keyframes fall {
             from {
                 transform: translateY(-10vh) translateX(0);
@@ -84,9 +90,30 @@
                 opacity: 0;
             }
         }
+
         @keyframes fadeInOut {
             0% { opacity: 0; }
             50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .fade-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fadeInOutBackground 12s infinite;
+        }
+
+        @keyframes fadeInOutBackground {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
             100% { opacity: 0; }
         }
     </style>
@@ -107,7 +134,62 @@
         <button class="download-btn" onclick="downloadTextFile()">Download Text</button>
         <button class="secondary-btn" onclick="alert('Second Button Clicked!')">Second Button</button>
     </div>
+
     <script>
+        // Array of background images
+        const backgrounds = [
+            'https://i.ibb.co/qF46FzC0/Slidelast.png',
+            'https://i.ibb.co/8LK2sM5X/Slide2.png',
+            'https://i.ibb.co/Ld1nxbDp/Slide1.png'
+        ];
+
+        // Create and append the background elements
+        let backgroundIndex = 0;
+        const totalBackgrounds = backgrounds.length;
+
+        function changeBackground() {
+            // Remove the previous background
+            const previousBackground = document.querySelector('.fade-background');
+            if (previousBackground) {
+                previousBackground.remove();
+            }
+
+            // Create new background element
+            const backgroundElement = document.createElement('div');
+            backgroundElement.classList.add('fade-background');
+            backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
+
+            // Append it to the body
+            document.body.appendChild(backgroundElement);
+
+            // Update index to the next image, looping back to 0 if we reach the end
+            backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
+        }
+
+        // Start the background slideshow (initial call and interval)
+        changeBackground();
+        setInterval(changeBackground, 4000); // Change every 4 seconds
+
+        // Mouse movement star effect
+        document.addEventListener('mousemove', (event) => {
+            const stars = document.querySelectorAll('.falling-star');
+            stars.forEach(star => {
+                const starX = parseFloat(star.style.left);
+                const starY = parseFloat(star.style.top);
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+                
+                const diffX = mouseX - starX;
+                const diffY = mouseY - starY;
+                const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+                
+                const moveX = diffX / distance * 10; // Adjust speed here
+                const moveY = diffY / distance * 10; // Adjust speed here
+
+                star.style.transform = `translate(-50%, -50%) translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
         function downloadTextFile() {
             const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
             fetch(fileUrl)
@@ -122,16 +204,19 @@
                 })
                 .catch(error => console.error("Error downloading file:", error));
         }
+
         function createFallingStars() {
             for (let i = 0; i < 20; i++) {
                 let star = document.createElement("div");
                 star.classList.add("falling-star");
                 star.style.left = Math.random() * 100 + "vw";
+                star.style.top = Math.random() * 100 + "vh";
                 star.style.animationDuration = Math.random() * 3 + 3 + "s";
                 document.body.appendChild(star);
                 setTimeout(() => { star.remove(); }, 5000);
             }
         }
+
         setInterval(createFallingStars, 1000);
     </script>
 </body>
