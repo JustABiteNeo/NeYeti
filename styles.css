@@ -7,10 +7,6 @@ body {
     color: white;
     overflow: hidden;
     height: 100vh;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    transition: background-image 1s ease-in-out;
     background-color: black; /* Prevent white background flash */
 }
 
@@ -21,6 +17,7 @@ body {
     background: linear-gradient(to top, #121212, black);
     padding: 15px 30px;
     z-index: 10;
+    position: relative;
 }
 
 .navbar .logo {
@@ -62,8 +59,9 @@ body {
 }
 
 .download-btn:hover, .secondary-btn:hover {
-    background: linear-gradient(to top, #1e1e1e, #3b9b3b); /* Green gradient on hover */
+    background: linear-gradient(to top, #3b9b3b, #292929); /* Green gradient on hover */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: scale(1.1); /* Subtle size increase on hover */
 }
 
 .download-btn:active, .secondary-btn:active {
@@ -75,6 +73,7 @@ body {
     text-align: center;
     margin-top: 50px;
     z-index: 20;
+    position: relative;
 }
 
 .falling-star {
