@@ -20,7 +20,7 @@ body {
     z-index: 10;
     position: fixed;
     top: 0;
-    width: 100%; /* Fix width to 100% for proper alignment */
+    width: 96%; /* Fix width to 100% for proper alignment */
 }
 
 .navbar .logo {
