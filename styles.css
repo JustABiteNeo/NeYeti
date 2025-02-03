@@ -20,7 +20,7 @@
     z-index: 10; /* Ensure the navbar stays above the background */
     position: fixed; /* Fix navbar at top */
     top: 0; /* Ensure navbar is at the top */
-    width: 90%;
+    width: 34%;
 }
 
 .navbar .logo {
