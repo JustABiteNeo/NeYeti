@@ -13,25 +13,28 @@ body {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centers everything horizontally */
     align-items: center;
     background: linear-gradient(to top, #121212, black);
     padding: 15px 15px;
-    z-index: 10; /* Ensure the navbar stays above the background */
-    position: fixed; /* Fix navbar at top */
-    top: 0; /* Ensure navbar is at the top */
-    width: 50%;
-}
-
-.navbar .logo {
-    font-size: 24px;
-    font-weight: bold;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    width: 100%; /* Adjust width to take up the entire screen */
 }
 
 .navbar .menu {
     display: flex;
     gap: 20px;
+    justify-content: center; /* Centers the menu items within the navbar */
+    flex-grow: 1; /* Ensures the menu takes up remaining space */
 }
+
+.navbar .logo {
+    position: absolute; /* Position logo on the left */
+    left: 15px; /* Adjust distance from the left edge */
+}
+
 
 .navbar .menu a {
     color: white;
