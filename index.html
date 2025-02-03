@@ -5,6 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - NeYeti</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Snowflakes container */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 24px;
+            opacity: 0;
+            animation: snowfall 10s linear infinite, fadeInOut 10s forwards;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw - 20px)) translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -16,13 +64,15 @@
         </div>
     </nav>
     <div class="content">
-        <h1>Welcome to NeYeti Offical Website</h1>
+        <h1>Welcome to NeYeti Official Website</h1>
         <p>Status: 🔴</p>  <p>Yeti's RNG Compatible: v400 / v461 </p>
-     <button class="download-btn1" onclick="downloadTextFile()">Download NeYeti</button>
-                <button class="secondary-btn1" onclick="downloadTextFile2()">Download NeYeti Source</button>
-           <button class="Discord" onclick="openlink()">Join Our Discord</button>
-
+        <button class="download-btn1" onclick="downloadTextFile()">Download NeYeti</button>
+        <button class="secondary-btn1" onclick="downloadTextFile2()">Download NeYeti Source</button>
+        <button class="Discord" onclick="openlink()">Join Our Discord</button>
     </div>
+
+    <!-- Snowflakes container -->
+    <div class="snowflakes"></div>
 
     <script>
         const backgrounds = [
@@ -33,9 +83,11 @@
 
         let backgroundIndex = 0;
         const totalBackgrounds = backgrounds.length;
-function openlink() {
-    window.open("https://discord.gg/bNbqNruCXS", "_blank");
-}
+
+        function openlink() {
+            window.open("https://discord.gg/bNbqNruCXS", "_blank");
+        }
+
         function changeBackground() {
             const previousBackground = document.querySelector('.fade-background');
             if (previousBackground) {
@@ -67,7 +119,8 @@ function openlink() {
                 })
                 .catch(error => console.error("Error downloading file:", error));
         }
-         function downloadTextFile2() {
+
+        function downloadTextFile2() {
             const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
             fetch(fileUrl)
                 .then(response => response.blob())
@@ -81,6 +134,26 @@ function openlink() {
                 })
                 .catch(error => console.error("Error downloading file:", error));
         }
+
+        // Create snowflakes
+        function createSnowflakes() {
+            const snowflakesContainer = document.querySelector('.snowflakes');
+            const numberOfSnowflakes = 20; // Number of snowflakes to create
+
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.textContent = '❄'; // Snowflake symbol
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Random speed between 5s and 10s
+                snowflake.style.animationDelay = `${Math.random() * 5}s`; // Random delay for each snowflake
+
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // Initialize snowflakes
+        createSnowflakes();
     </script>
 </body>
 </html>
