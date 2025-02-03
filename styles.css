@@ -46,7 +46,7 @@ body {
 }
 
 .download-btn1, .secondary-btn1 {
-    background: linear-gradient(to top, #FFFF00, #8B8000);
+    background: linear-gradient(to top, #1e1e1e, #3b3b3b);
     color: white;
     padding: 12px 30px;
     border: none;
@@ -61,12 +61,16 @@ body {
     position: relative;
 }
 
-.download-btn1:hover, .secondary-btn1:hover {
+.download-btn1:hover {
     background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Dark green gradient on hover */
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
     transform: scale(1.1); /* Slight size increase on hover */
 }
-
+.secondary-btn1:hover {
+    background: linear-gradient(to top, #FFFF00, #8B8000); /* Dark green gradient on hover */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    transform: scale(1.1); /* Slight size increase on hover */
+}
 
 .download-btn1:active, .secondary-btn1:active {
     background: linear-gradient(to top, #0f0f0f, #2b2b2b);
