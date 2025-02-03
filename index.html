@@ -14,6 +14,7 @@
             background: url('https://i.ibb.co/FNPDww0/Untitled45-20250203042739.png') no-repeat center center/cover;
             color: white;
             overflow: hidden;
+            height: 100vh;
         }
         .navbar {
             display: flex;
@@ -70,8 +71,8 @@
             height: 3px;
             background: white;
             border-radius: 50%;
-            opacity: 0.8;
-            animation: fall 5s linear infinite;
+            opacity: 0;
+            animation: fall 5s linear infinite, fadeInOut 5s linear infinite;
         }
         @keyframes fall {
             from {
@@ -83,6 +84,11 @@
                 opacity: 0;
             }
         }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -92,7 +98,6 @@
             <a href="#">Home</a>
             <a href="#">Features</a>
             <a href="#">Support</a>
-            <a href="#">Store</a>
         </div>
         <button class="download-btn" onclick="downloadTextFile()">DOWNLOAD</button>
     </nav>
