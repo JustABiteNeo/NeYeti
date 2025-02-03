@@ -16,11 +16,11 @@ body {
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(to top, #121212, black);
-    padding: 15px 30px;
+    padding: 15px 15px;
     z-index: 10; /* Ensure the navbar stays above the background */
     position: fixed; /* Fix navbar at top */
     top: 0; /* Ensure navbar is at the top */
-    width: 100%;
+    width: 50%;
 }
 
 .navbar .logo {
