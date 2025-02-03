@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features Page</title>
-    <style>
-        /* Reuse the same styles as main page */
-    </style>
+    <title>Features - NeYeti</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">MY WEBSITE</div>
+        <div class="logo">NeYeti</div>
         <div class="menu">
             <a href="index.html">Home</a>
             <a href="features.html">Features</a>
@@ -18,14 +16,53 @@
         </div>
     </nav>
     <div class="content">
-        <h1>Features</h1>
-        <p>Here are the features of the website.</p>
-        <button class="download-btn" onclick="downloadTextFile()">Download Text</button>
-        <button class="secondary-btn" onclick="alert('Second Button Clicked!')">Second Button</button>
+        <h1>Downloads</h1>
+        <p>Status: Unpatched:</p>
+     <button class="download-btn1" onclick="downloadTextFile()">Download NeYeti</button>
+        <button class="secondary-btn1" onclick="alert('Second Button Clicked!')">Download NeYeti Source</button>
     </div>
 
     <script>
-        /* Same JavaScript as the main page */
+        const backgrounds = [
+            'https://i.ibb.co/qF46FzC0/Slidelast.png',
+            'https://i.ibb.co/8LK2sM5X/Slide2.png',
+            'https://i.ibb.co/Ld1nxbDp/Slide1.png'
+        ];
+
+        let backgroundIndex = 0;
+        const totalBackgrounds = backgrounds.length;
+
+        function changeBackground() {
+            const previousBackground = document.querySelector('.fade-background');
+            if (previousBackground) {
+                previousBackground.remove();
+            }
+
+            const backgroundElement = document.createElement('div');
+            backgroundElement.classList.add('fade-background');
+            backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
+
+            document.body.appendChild(backgroundElement);
+            backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
+        }
+
+        changeBackground();
+        setInterval(changeBackground, 4000);
+
+        function downloadTextFile() {
+            const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
+            fetch(fileUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "Text";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+                .catch(error => console.error("Error downloading file:", error));
+        }
     </script>
 </body>
 </html>
