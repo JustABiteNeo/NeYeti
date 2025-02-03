@@ -70,7 +70,7 @@ body {
 }
 
 .secondary-btn1:hover {
-    background: linear-gradient(to top, #3b9b3b, #1e5e1e); /* Green gradient on hover */
+    background: linear-gradient(to top, #FFFF00, #8B8000); /* Green gradient on hover */
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
     transform: scale(1.2); /* Increased size on hover */
 }
