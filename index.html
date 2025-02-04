@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - NeYeti</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Starfall Effect</title>
     <style>
-        /* Snowflakes container */
-        .snowflakes {
+        body {
+            background: black;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .stars-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -15,24 +19,27 @@
             height: 100%;
             pointer-events: none;
             z-index: 9999;
-            overflow: hidden;
         }
 
-        .snowflake {
+        .star {
             position: absolute;
             top: -10px;
-            color: #fff;
-            font-size: 10px; /* Varies dynamically */
+            color: white;
+            font-size: 8px; /* Randomized */
             opacity: 0;
+            animation: fall linear infinite;
             transition: transform 0.3s ease-out;
         }
 
-        @keyframes snowfall {
+        @keyframes fall {
             0% {
                 transform: translateY(0);
                 opacity: 0;
             }
             10% {
+                opacity: 1;
+            }
+            90% {
                 opacity: 1;
             }
             100% {
@@ -43,225 +50,65 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">NeYeti</div>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="features.html">Features</a>
-            <a href="support.html">Support</a>
-        </div>
-    </nav>
-    <div class="content">
-        <h1>Welcome to NeYeti Official Website</h1>
-        <p>Status: 🔴</p>  
-        <p>Yeti's RNG Compatible: v400 / v461 </p>
-        <button class="download-btn1" onclick="downloadTextFile()">Download NeYeti</button>
-        <button class="secondary-btn1" onclick="downloadTextFile2()">Download NeYeti Source</button>
-        <button class="Discord" onclick="openlink()">Join Our Discord</button>
-    </div>
 
-    <!-- Snowflakes container -->
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features - NeYeti</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        .fade-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 1s ease-in-out;
-            z-index: -1;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-        }
-
-        .menu a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 18px;
-        }
-
-        .content {
-            text-align: center;
-            padding: 100px 20px;
-            color: #fff;
-        }
-
-        /* Download Button */
-        .download-btn {
-            display: block;
-            margin: 40px auto;
-            padding: 15px 30px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            background: linear-gradient(45deg, #4CAF50, #2E7D32);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .download-btn:hover {
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.9);
-        }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar">
-        <div class="logo">NeYeti</div>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="features.html">Features</a>
-            <a href="support.html">Support</a>
-        </div>
-    </nav>
-
-    <div class="content">
-        <h1>Features</h1> 
-        <p>Application Features</p>
-    </div>
-
-    <a href="#" class="download-btn" onclick="downloadTextFile()">Download</a>
+    <div class="stars-container"></div>
 
     <script>
-        const backgrounds = [
-            'https://i.ibb.co/qF46FzC/Slidelast.png',
-            'https://i.ibb.co/8LK2sM5/Slide2.png',
-            'https://i.ibb.co/Ld1nxbD/Slide1.png'
-        ];
+        const starsContainer = document.querySelector('.stars-container');
+        const totalStars = 100; // Number of stars
+        let stars = [];
 
-        let backgroundIndex = 0;
-        const totalBackgrounds = backgrounds.length;
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.textContent = '✦'; // Star symbol
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.fontSize = `${Math.random() * 10 + 5}px`; // Random size
+            star.style.opacity = '1';
 
-  <div class="snowflakes"></div>
+            const fallDuration = Math.random() * 3 + 2; // Random speed (2-5s)
+            star.style.animation = `fall ${fallDuration}s linear infinite`;
+            star.style.animationDelay = `${Math.random() * 2}s`; // Staggered start
 
-    <script>
-        const snowflakesContainer = document.querySelector('.snowflakes');
-        const totalSnowflakes = 80; // Generous amount of snowflakes
-        let snowflakes = [];
+            starsContainer.appendChild(star);
+            stars.push(star);
 
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.textContent = '❄';
-            snowflake.style.left = `${Math.random() * 100}vw`;
-            snowflake.style.fontSize = `${Math.random() * 15 + 10}px`; // Random size
-            snowflake.style.opacity = '1';
-
-            const fallDuration = Math.random() * 5 + 5; // Random speed (5-10s)
-            snowflake.style.animation = `snowfall ${fallDuration}s linear infinite`;
-
-            snowflakesContainer.appendChild(snowflake);
-            snowflakes.push(snowflake);
-
-            // Loop effect: Reset snowflake when it reaches bottom
+            // Reset star position when it reaches the bottom
             setInterval(() => {
-                if (parseFloat(getComputedStyle(snowflake).top) >= window.innerHeight) {
-                    snowflake.style.top = '-10px'; // Reset position
-                    snowflake.style.left = `${Math.random() * 100}vw`; // New random start
+                if (parseFloat(getComputedStyle(star).top) >= window.innerHeight) {
+                    star.style.top = '-10px'; // Reset to top
+                    star.style.left = `${Math.random() * 100}vw`; // Randomize start position
                 }
             }, 50);
         }
 
-        function generateSnowflakes() {
-            for (let i = 0; i < totalSnowflakes; i++) {
-                createSnowflake();
+        function generateStars() {
+            for (let i = 0; i < totalStars; i++) {
+                createStar();
             }
         }
 
-        // Make snowflakes move away from mouse cursor
+        // Stars move away from the mouse cursor
         document.addEventListener('mousemove', (event) => {
-            snowflakes.forEach(snowflake => {
-                const rect = snowflake.getBoundingClientRect();
+            stars.forEach(star => {
+                const rect = star.getBoundingClientRect();
                 const dx = rect.left + rect.width / 2 - event.clientX;
                 const dy = rect.top + rect.height / 2 - event.clientY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < 50) { // Snowflakes will react within 50px
+                if (distance < 50) { // React within 50px
                     const angle = Math.atan2(dy, dx);
                     const moveX = Math.cos(angle) * 30; // Push away
                     const moveY = Math.sin(angle) * 30;
-                    snowflake.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    star.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 } else {
-                    snowflake.style.transform = `translate(0, 0)`;
+                    star.style.transform = `translate(0, 0)`;
                 }
             });
         });
 
-        // Start the snow
-        generateSnowflakes();
-
-
-
-        
-        function changeBackground() {
-            const previousBackground = document.querySelector('.fade-background');
-            if (previousBackground) {
-                previousBackground.style.opacity = '0';
-                setTimeout(() => previousBackground.remove(), 1000);
-            }
-
-            const backgroundElement = document.createElement('div');
-            backgroundElement.classList.add('fade-background');
-            backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
-            backgroundElement.style.opacity = '0';
-
-            document.body.appendChild(backgroundElement);
-            setTimeout(() => backgroundElement.style.opacity = '1', 100);
-
-            backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
-        }
-
-        changeBackground();
-        setInterval(changeBackground, 4000);
-
-        function downloadTextFile() {
-            const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
-            fetch(fileUrl)
-                .then(response => response.blob())
-                .then(blob => {
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    link.download = "Text";
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                })
-                .catch(error => console.error("Error downloading file:", error));
-        }
+        // Start the starfall effect
+        generateStars();
     </script>
 
 </body>
