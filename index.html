@@ -22,33 +22,22 @@
             position: absolute;
             top: -10px;
             color: #fff;
-            font-size: 24px;
+            font-size: 10px; /* Varies dynamically */
             opacity: 0;
-            animation: snowfall 10s linear infinite, fadeInOut 10s forwards;
+            animation: snowfall linear infinite;
+            transition: transform 0.3s ease-out;
         }
 
         @keyframes snowfall {
             0% {
-                transform: translateX(0) translateY(0);
+                transform: translateY(0);
                 opacity: 0;
             }
-            50% {
+            10% {
                 opacity: 1;
             }
             100% {
-                transform: translateX(calc(100vw - 20px)) translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
+                transform: translateY(100vh);
                 opacity: 0;
             }
         }
@@ -65,7 +54,8 @@
     </nav>
     <div class="content">
         <h1>Welcome to NeYeti Official Website</h1>
-        <p>Status: 🔴</p>  <p>Yeti's RNG Compatible: v400 / v461 </p>
+        <p>Status: 🔴</p>  
+        <p>Yeti's RNG Compatible: v400 / v461 </p>
         <button class="download-btn1" onclick="downloadTextFile()">Download NeYeti</button>
         <button class="secondary-btn1" onclick="downloadTextFile2()">Download NeYeti Source</button>
         <button class="Discord" onclick="openlink()">Join Our Discord</button>
@@ -75,85 +65,56 @@
     <div class="snowflakes"></div>
 
     <script>
-        const backgrounds = [
-            'https://i.ibb.co/qF46FzC0/Slidelast.png',
-            'https://i.ibb.co/8LK2sM5X/Slide2.png',
-            'https://i.ibb.co/Ld1nxbDp/Slide1.png'
-        ];
+        const snowflakesContainer = document.querySelector('.snowflakes');
+        const totalSnowflakes = 80; // Generous amount of snowflakes
+        let snowflakes = [];
 
-        let backgroundIndex = 0;
-        const totalBackgrounds = backgrounds.length;
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄'; // Snowflake symbol
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.fontSize = `${Math.random() * 15 + 10}px`; // Random size between 10px and 25px
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Random fall speed (5-10s)
+            snowflake.style.animationDelay = `${Math.random() * 2}s`; // Slight delay for staggered fall
 
-        function openlink() {
-            window.open("https://discord.gg/bNbqNruCXS", "_blank");
+            snowflakesContainer.appendChild(snowflake);
+            snowflakes.push(snowflake);
+
+            // Restart snowflake when it reaches bottom
+            snowflake.addEventListener('animationiteration', () => {
+                snowflake.style.left = `${Math.random() * 100}vw`; // Random X position again
+                snowflake.style.fontSize = `${Math.random() * 15 + 10}px`; // Reset size
+            });
         }
 
-        function changeBackground() {
-            const previousBackground = document.querySelector('.fade-background');
-            if (previousBackground) {
-                previousBackground.remove();
-            }
-
-            const backgroundElement = document.createElement('div');
-            backgroundElement.classList.add('fade-background');
-            backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
-
-            document.body.appendChild(backgroundElement);
-            backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
-        }
-
-        changeBackground();
-        setInterval(changeBackground, 4000);
-
-        function downloadTextFile() {
-            const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
-            fetch(fileUrl)
-                .then(response => response.blob())
-                .then(blob => {
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    link.download = "Text";
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                })
-                .catch(error => console.error("Error downloading file:", error));
-        }
-
-        function downloadTextFile2() {
-            const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
-            fetch(fileUrl)
-                .then(response => response.blob())
-                .then(blob => {
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    link.download = "Text";
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                })
-                .catch(error => console.error("Error downloading file:", error));
-        }
-
-        // Create snowflakes
-        function createSnowflakes() {
-            const snowflakesContainer = document.querySelector('.snowflakes');
-            const numberOfSnowflakes = 20; // Number of snowflakes to create
-
-            for (let i = 0; i < numberOfSnowflakes; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.textContent = '❄'; // Snowflake symbol
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Random speed between 5s and 10s
-                snowflake.style.animationDelay = `${Math.random() * 5}s`; // Random delay for each snowflake
-
-                snowflakesContainer.appendChild(snowflake);
+        function generateSnowflakes() {
+            for (let i = 0; i < totalSnowflakes; i++) {
+                createSnowflake();
             }
         }
 
-        // Initialize snowflakes
-        createSnowflakes();
+        // Make snowflakes move away from mouse cursor
+        document.addEventListener('mousemove', (event) => {
+            snowflakes.forEach(snowflake => {
+                const rect = snowflake.getBoundingClientRect();
+                const dx = rect.left + rect.width / 2 - event.clientX;
+                const dy = rect.top + rect.height / 2 - event.clientY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 50) { // Snowflakes will react within 50px
+                    const angle = Math.atan2(dy, dx);
+                    const moveX = Math.cos(angle) * 30; // Push away
+                    const moveY = Math.sin(angle) * 30;
+                    snowflake.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                } else {
+                    snowflake.style.transform = `translate(0, 0)`;
+                }
+            });
+        });
+
+        // Initialize snow
+        generateSnowflakes();
     </script>
 </body>
 </html>
