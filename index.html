@@ -185,13 +185,14 @@ function downloadTextFile() {
         .then(blob => {
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "Text.txt";
+            link.download = "NeYeti.txt";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         })
         .catch(error => {
-
+            console.error("Error downloading file:", error);
+            alert("Error downloading file: File not found.");
         });
 }
         function downloadTextFile2() {
