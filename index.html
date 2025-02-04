@@ -24,7 +24,6 @@
             color: #fff;
             font-size: 10px; /* Varies dynamically */
             opacity: 0;
-            animation: snowfall linear infinite;
             transition: transform 0.3s ease-out;
         }
 
@@ -72,20 +71,24 @@
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
-            snowflake.textContent = '❄'; // Snowflake symbol
+            snowflake.textContent = '❄';
             snowflake.style.left = `${Math.random() * 100}vw`;
-            snowflake.style.fontSize = `${Math.random() * 15 + 10}px`; // Random size between 10px and 25px
-            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Random fall speed (5-10s)
-            snowflake.style.animationDelay = `${Math.random() * 2}s`; // Slight delay for staggered fall
+            snowflake.style.fontSize = `${Math.random() * 15 + 10}px`; // Random size
+            snowflake.style.opacity = '1';
+
+            const fallDuration = Math.random() * 5 + 5; // Random speed (5-10s)
+            snowflake.style.animation = `snowfall ${fallDuration}s linear infinite`;
 
             snowflakesContainer.appendChild(snowflake);
             snowflakes.push(snowflake);
 
-            // Restart snowflake when it reaches bottom
-            snowflake.addEventListener('animationiteration', () => {
-                snowflake.style.left = `${Math.random() * 100}vw`; // Random X position again
-                snowflake.style.fontSize = `${Math.random() * 15 + 10}px`; // Reset size
-            });
+            // Loop effect: Reset snowflake when it reaches bottom
+            setInterval(() => {
+                if (parseFloat(getComputedStyle(snowflake).top) >= window.innerHeight) {
+                    snowflake.style.top = '-10px'; // Reset position
+                    snowflake.style.left = `${Math.random() * 100}vw`; // New random start
+                }
+            }, 50);
         }
 
         function generateSnowflakes() {
@@ -113,7 +116,7 @@
             });
         });
 
-        // Initialize snow
+        // Start the snow
         generateSnowflakes();
     </script>
 </body>
