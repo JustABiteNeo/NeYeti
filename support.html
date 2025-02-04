@@ -24,6 +24,14 @@
     </div>
 
     <script>
+       <!-- Background Image -->
+    <div id="background-container"></div>
+
+    <!-- Starfall Effect -->
+    <div class="stars-container"></div>
+
+    <script>
+        // Background images
         const backgrounds = [
             'https://i.ibb.co/qF46FzC0/Slidelast.png',
             'https://i.ibb.co/8LK2sM5X/Slide2.png',
@@ -31,8 +39,6 @@
         ];
 
         let backgroundIndex = 0;
-        const totalBackgrounds = backgrounds.length;
-
         function changeBackground() {
             const previousBackground = document.querySelector('.fade-background');
             if (previousBackground) {
@@ -44,14 +50,76 @@
             backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
 
             document.body.appendChild(backgroundElement);
-            backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
+            backgroundIndex = (backgroundIndex + 1) % backgrounds.length;
         }
 
+        // Start background switcher
         changeBackground();
         setInterval(changeBackground, 4000);
-function openlink() {
-    window.open("https://discord.gg/bNbqNruCXS", "_blank");
-}
+
+        // Starfall Effect
+        const starsContainer = document.querySelector('.stars-container');
+        const totalStars = 100; // Number of stars
+        let stars = [];
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.textContent = '✦'; // Star symbol
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.fontSize = `${Math.random() * 10 + 5}px`; // Random size
+            star.style.opacity = '1';
+
+            const fallDuration = Math.random() * 3 + 2; // Random speed (2-5s)
+            star.style.animation = `fall ${fallDuration}s linear infinite`;
+            star.style.animationDelay = `${Math.random() * 2}s`; // Staggered start
+
+            starsContainer.appendChild(star);
+            stars.push(star);
+
+            // Reset star position when it reaches the bottom
+            setInterval(() => {
+                if (parseFloat(getComputedStyle(star).top) >= window.innerHeight) {
+                    star.style.top = '-10px'; // Reset to top
+                    star.style.left = `${Math.random() * 100}vw`; // Randomize start position
+                }
+            }, 50);
+        }
+
+        function generateStars() {
+            for (let i = 0; i < totalStars; i++) {
+                createStar();
+            }
+        }
+
+        // Stars move away from the mouse cursor
+        document.addEventListener('mousemove', (event) => {
+            stars.forEach(star => {
+                const rect = star.getBoundingClientRect();
+                const dx = rect.left + rect.width / 2 - event.clientX;
+                const dy = rect.top + rect.height / 2 - event.clientY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 50) { // React within 50px
+                    const angle = Math.atan2(dy, dx);
+                    const moveX = Math.cos(angle) * 30; // Push away
+                    const moveY = Math.sin(angle) * 30;
+                    star.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                } else {
+                    star.style.transform = `translate(0, 0)`;
+                }
+            });
+        });
+
+        // Start the starfall effect
+        generateStars();
+
+        // Open Discord link
+        function openlink() {
+            window.open("https://discord.gg/bNbqNruCXS", "_blank");
+        }
+
+        // Download buttons
         function downloadTextFile() {
             const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
             fetch(fileUrl)
@@ -66,6 +134,22 @@ function openlink() {
                 })
                 .catch(error => console.error("Error downloading file:", error));
         }
+
+        function downloadTextFile2() {
+            const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
+            fetch(fileUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "Text";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+                .catch(error => console.error("Error downloading file:", error));
+        }
     </script>
+
 </body>
 </html>
