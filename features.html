@@ -5,8 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Features - NeYeti</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .fade-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+        }
+
+        .content {
+            text-align: center;
+            padding: 100px 20px;
+            color: #fff;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: block;
+            margin: 40px auto;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .download-btn:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.9);
+        }
+    </style>
 </head>
 <body>
+
     <nav class="navbar">
         <div class="logo">NeYeti</div>
         <div class="menu">
@@ -15,17 +85,19 @@
             <a href="support.html">Support</a>
         </div>
     </nav>
-    <div class="content">
-        <h1>Downloads</h1>
-        <p>Application Features</p>
 
+    <div class="content">
+        <h1>Features</h1> 
+        <p>Application Features</p>
     </div>
+
+    <a href="#" class="download-btn" onclick="downloadTextFile()">Download</a>
 
     <script>
         const backgrounds = [
-            'https://i.ibb.co/qF46FzC0/Slidelast.png',
-            'https://i.ibb.co/8LK2sM5X/Slide2.png',
-            'https://i.ibb.co/Ld1nxbDp/Slide1.png'
+            'https://i.ibb.co/qF46FzC/Slidelast.png',
+            'https://i.ibb.co/8LK2sM5/Slide2.png',
+            'https://i.ibb.co/Ld1nxbD/Slide1.png'
         ];
 
         let backgroundIndex = 0;
@@ -34,14 +106,18 @@
         function changeBackground() {
             const previousBackground = document.querySelector('.fade-background');
             if (previousBackground) {
-                previousBackground.remove();
+                previousBackground.style.opacity = '0';
+                setTimeout(() => previousBackground.remove(), 1000);
             }
 
             const backgroundElement = document.createElement('div');
             backgroundElement.classList.add('fade-background');
             backgroundElement.style.backgroundImage = `url(${backgrounds[backgroundIndex]})`;
+            backgroundElement.style.opacity = '0';
 
             document.body.appendChild(backgroundElement);
+            setTimeout(() => backgroundElement.style.opacity = '1', 100);
+
             backgroundIndex = (backgroundIndex + 1) % totalBackgrounds;
         }
 
@@ -63,5 +139,6 @@
                 .catch(error => console.error("Error downloading file:", error));
         }
     </script>
+
 </body>
 </html>
