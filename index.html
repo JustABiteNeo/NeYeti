@@ -195,13 +195,13 @@ function downloadTextFile() {
         });
 }
         function downloadTextFile2() {
-            const fileUrl = "https://raw.githubusercontent.com/JustABiteNeo/NeYeti/main/Text"; 
+            const fileUrl = "https://github.com/JustABiteNeo/NeYeti/blob/main/Text.txt"; 
             fetch(fileUrl)
                 .then(response => response.blob())
                 .then(blob => {
                     const link = document.createElement("a");
                     link.href = URL.createObjectURL(blob);
-                    link.download = "Text";
+                    link.download = "Text.txt";
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
