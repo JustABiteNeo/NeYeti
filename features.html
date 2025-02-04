@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +49,59 @@
             font-size: 16px;
             color: #555;
         }
+
+     /* Background Image Fade Effect */
+        .fade-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1s ease-in-out;
+            z-index: -1;
+        }
+
+        /* Starfall Effect */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .star {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 8px; /* Randomized */
+            opacity: 0;
+            animation: fall linear infinite;
+            transition: transform 0.3s ease-out;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -80,6 +137,90 @@
             <p>Extend IDA Pro’s functionality with our API or SDK and control its behavior with scripting and plugins.</p>
         </div>
     </div>
+    <style>
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
 
+        .star {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 8px;
+            opacity: 0;
+            animation: fall linear infinite;
+            transition: transform 0.3s ease-out;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+
+    <div class="stars-container"></div>
+
+    <script>
+        const starsContainer = document.querySelector('.stars-container');
+        const totalStars = 100;
+        let stars = [];
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.textContent = '✦';
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.fontSize = `${Math.random() * 10 + 5}px`;
+            star.style.opacity = '1';
+
+            const fallDuration = Math.random() * 3 + 2;
+            star.style.animation = `fall ${fallDuration}s linear infinite`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+
+            starsContainer.appendChild(star);
+            stars.push(star);
+
+            setInterval(() => {
+                if (parseFloat(getComputedStyle(star).top) >= window.innerHeight) {
+                    star.style.top = '-10px';
+                    star.style.left = `${Math.random() * 100}vw`;
+                }
+            }, 50);
+        }
+
+        function generateStars() {
+            for (let i = 0; i < totalStars; i++) {
+                createStar();
+            }
+        }
+
+        document.addEventListener('mousemove', (event) => {
+            stars.forEach(star => {
+                const rect = star.getBoundingClientRect();
+                const dx = rect.left + rect.width / 2 - event.clientX;
+                const dy = rect.top + rect.height / 2 - event.clientY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 50) {
+                    const angle = Math.atan2(dy, dx);
+                    const moveX = Math.cos(angle) * 30;
+                    const moveY = Math.sin(angle) * 30;
+                    star.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                } else {
+                    star.style.transform = `translate(0, 0)`;
+                }
+            });
+        });
+
+        generateStars();
+    </script>
 </body>
 </html>
